@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package roko;
+
+service AdvancedServices {
+  // Worker Matching Engine
+  rpc FindBestWorkers (MatchingRequest) returns (MatchingResponse) {}
+  
+  // Smart Scheduling & Slot Optimization
+  rpc OptimizeSchedule (ScheduleRequest) returns (ScheduleResponse) {}
+  
+  // Pricing Engine
+  rpc CalculateDynamicPrice (PricingRequest) returns (PricingResponse) {}
+}
+
+message MatchingRequest {
+  string service_id = 1;
+  double client_lat = 2;
+  double client_lng = 3;
+  int32 max_results = 4;
+}
+
+message MatchingResponse {
+  repeated string worker_ids = 1;
+}
+
+message ScheduleRequest {
+  string worker_id = 1;
+  string date = 2; // YYYY-MM-DD
+}
+
+message ScheduleResponse {
+  repeated string available_slots = 1;
+}
+
+message PricingRequest {
+  string service_id = 1;
+  double distance_km = 2;
+  int32 demand_multiplier = 3; 
+}
+
+message PricingResponse {
+  double final_price = 1;
+}
